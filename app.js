@@ -18,7 +18,7 @@ app.use(express.json());
 app.use("/user", userRoute);
 
 app.get("/", (req, res) => {
-  res.json({ status: "ok" });
+  res.json({ success: true });
 });
 
 app.listen(PORT, () => log.green("SERVER STATUS", `Listening on port ${PORT}`));

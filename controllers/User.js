@@ -22,7 +22,7 @@ const login = async (req, res) => {
       if (match) {
         // sign token and send it in response
         const token = jwt.sign({ username: username }, SECRET);
-        res.json({ status: "ok", data: { token: token } });
+        res.json({ success: true, data: { token: token } });
       } else {
         res.status(401).json({ error: "Invalid credentials" });
       }
@@ -56,7 +56,7 @@ const signup = async (req, res) => {
     fs.writeFileSync("./users.txt", JSON.stringify(usersList));
 
     // send new user as response
-    res.json(req.body);
+    res.json({ success: true, ...req.body });
   } catch (error) {
     console.log(error);
     res.status(400).json({ error });
