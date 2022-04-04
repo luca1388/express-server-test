@@ -8,7 +8,7 @@ const login = async (req, res) => {
   const { username, password } = req.body;
   try {
     // Faking the users list coming from a database ...
-    let usersList = fs.readFileSync("./users.txt", { encoding: "utf-8" });
+    let usersList = fs.readFileSync("./db/users.txt", { encoding: "utf-8" });
     if (usersList) {
       usersList = JSON.parse(usersList);
     } else {
@@ -27,10 +27,10 @@ const login = async (req, res) => {
         res.status(401).json({ error: "Invalid credentials" });
       }
     } else {
-      res.status(401).json({ error: "Invalid credentials" });
+      res.status(404).json({ error: "User not found" });
     }
   } catch (e) {
-    res.status(500).json({ error: e.toString() });
+    res.status(500).json({ error: "Server error" });
   }
 };
 
@@ -45,7 +45,7 @@ const signup = async (req, res) => {
       password: passwordHash,
     };
 
-    let usersList = fs.readFileSync("./users.txt", { encoding: "utf-8" });
+    let usersList = fs.readFileSync("./db/users.txt", { encoding: "utf-8" });
     if (usersList) {
       usersList = JSON.parse(usersList);
       usersList.push(user);
@@ -53,10 +53,10 @@ const signup = async (req, res) => {
       usersList = [user];
     }
 
-    fs.writeFileSync("./users.txt", JSON.stringify(usersList));
+    fs.writeFileSync("./db/users.txt", JSON.stringify(usersList));
 
     // send new user as response
-    res.json({ success: true, ...req.body });
+    res.json({ success: true, username: req.body.username });
   } catch (error) {
     console.log(error);
     res.status(400).json({ error });

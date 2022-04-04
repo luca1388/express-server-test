@@ -4,7 +4,9 @@ const express = require("express");
 const morgan = require("morgan");
 const { log } = require("mercedlogger");
 const cors = require("cors");
-const userRoute = require("./routes/user").userRoute;
+const { crewRoute } = require("./routes/crew");
+const { userRoute } = require("./routes/user");
+const { statusRoute } = require("./routes/status");
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -16,8 +18,10 @@ app.use(express.json());
 
 // Routes
 app.use("/user", userRoute);
+app.use("/crew", crewRoute);
+app.use("/status", statusRoute);
 
-app.get("/", (req, res) => {
+app.get("/", (_req, res) => {
   res.json({ success: true });
 });
 

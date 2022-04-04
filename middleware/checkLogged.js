@@ -1,7 +1,7 @@
 require("dotenv").config(); // loading env variables
 const jwt = require("jsonwebtoken");
 
-// MIDDLEWARE FOR AUTHORIZATION (MAKING SURE THEY ARE LOGGED IN)
+// Middleware for logged check
 const isLoggedIn = async (req, res, next) => {
   try {
     // check if auth header exists
