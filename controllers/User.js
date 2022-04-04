@@ -2,7 +2,7 @@ const bcrypt = require("bcryptjs"); // import bcrypt to hash passwords
 const jwt = require("jsonwebtoken");
 const fs = require("fs");
 
-const { SECRET } = process.env;
+const { SECRET = "qwertyuiop" } = process.env;
 
 const login = async (req, res) => {
   const { username, password } = req.body;
